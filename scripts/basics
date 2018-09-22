@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e  # Exit immediately if a command exits with a non-zero status.
+set -x  # All executed commands are printed to the terminal
+
+cp /tmp/scripts/boot /usr/local/boot
+
+mkdir -p /usr/share/man/man1
+
+PROGRAM=PhpStorm-2018.2.3.tar.gz
+
+aptitude update ; aptitude install -y php php-cgi php-mysql php-pear php-pgsql php-sqlite3 php-xdebug
+
+wget -P /tmp/ https://download.jetbrains.com/webide/$PROGRAM
+
+mkdir -p /usr/share/phpstorm
+tar -xzf /tmp/$PROGRAM -C /usr/share/phpstorm/ --strip 1
+
+unzip -d /root /tmp/scripts/PhpStorm.zip
+
+sed -i -e 's/80/8080/g' /etc/apache2/ports.conf
+sed -i -e 's/80/8080/g' /etc/apache2/sites-enabled/000-default.conf
+
+apt-get -y autoremove ; aptitude -y autoclean ; apt-get -y autoclean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.aptitude /root/.wget-hsts /root/.cache
