@@ -7,7 +7,7 @@ cp /tmp/scripts/boot /usr/local/boot
 
 mkdir -p /usr/share/man/man1
 
-PROGRAM=PhpStorm-2018.2.4.tar.gz
+PROGRAM=PhpStorm-2018.2.5.tar.gz
 
 aptitude update ; aptitude install -y php php-cgi php-mysql php-pear php-pgsql php-sqlite3 php-xdebug
 
